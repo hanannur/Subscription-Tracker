@@ -1,12 +1,11 @@
 import express from 'express';
 import {PORT} from './config/env.js';
 import userRouter from './routes/user.routes.js'; 
-import authRouter from './routes/authroutes.js';
+import authRouter from './controller/auth.routes.js';
 import subscriptionRouter from './routes/subscription.routes.js'; 
 import { connectDB } from './database/mongodb.js';
 import errorMiddleware from './middleware/error.middleware.js';
 import cookieParser from 'cookie-parser';
-
 
 const app = express();
 
