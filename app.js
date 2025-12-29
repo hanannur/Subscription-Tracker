@@ -6,12 +6,20 @@ import subscriptionRouter from './routes/subscription.routes.js';
 import { connectDB } from './database/mongodb.js';
 import errorMiddleware from './middleware/error.middleware.js';
 import cookieParser from 'cookie-parser';
+import arcjectMiddleware from './middleware/arcject.middleware.js';
+import dotenv from 'dotenv';
+dotenv.config();  
 
+import aj from "./config/arcject.js";
 const app = express();
+app.set("trust proxy", true);
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());  
+app.use(arcjectMiddleware)
+
 
 app.use('/api/auth' , authRouter)
 app.use('/api/users' , userRouter)
