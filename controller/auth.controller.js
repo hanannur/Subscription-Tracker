@@ -27,7 +27,7 @@ import { JWT_SECRET, JWT_EXPIRES_IN } from '../config/env.js';
 //             name: username,
 //             email,
 //             password: hashedPassword
-//         });
+//         } ({ session }));
 //         await newUser.save();
 
 //         //Generate JWT token
@@ -101,8 +101,42 @@ export const signUp = async (req, res, next) => {
 
 
 export const signin = async (req, res, next) => {
-    res.status(200).json({ message: "Signin route works" });
-};
+    try {
+        const { email , password } = req.body;
+        const user = await User.findOne({ email });
+        if(!user){
+            const error = new Error ('Invalid email or password');
+            error.statusCode=401;
+            throw error;
+            
+        }
+        const isMatch = await bcrypt.compare(password, user.password);          
+
+        if(!isMatch){
+            const error = new Error ('Invalid email or password');
+            error.statusCode=401;
+            throw error;
+        }
+
+        //Generate JWT token
+        const token = jwt.sign( 
+            { userId: user._id, email: user.email },
+            JWT_SECRET,
+            { expiresIn: JWT_EXPIRES_IN }
+        )       ;
+
+        res.status(200).json({
+            success: true,
+            message: "Signin successful",
+            token: token,
+            data: { 
+                user: user
+            }
+        }); 
+    } catch (error) {
+        next(error);    
+        }   
+    };
 
 export const signout = async (req, res, next) => {
     res.status(200).json({ message: "Signout route works" });
