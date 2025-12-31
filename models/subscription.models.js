@@ -1,5 +1,4 @@
-import userRouter from "../routes/user.routes";
-
+import mongoose from 'mongoose';
 const subscriptionSchema = new mongoose.Schema({
     name:{
         type:String,

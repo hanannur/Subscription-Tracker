@@ -7,10 +7,10 @@ import { connectDB } from './database/mongodb.js';
 import errorMiddleware from './middleware/error.middleware.js';
 import cookieParser from 'cookie-parser';
 import arcjectMiddleware from './middleware/arcject.middleware.js';
+import workflowRouter from './routes/workflow.route.js';
 import dotenv from 'dotenv';
 dotenv.config();  
 
-import aj from "./config/arcject.js";
 const app = express();
 app.set("trust proxy", true);
 
@@ -24,6 +24,8 @@ app.use(arcjectMiddleware)
 app.use('/api/auth' , authRouter)
 app.use('/api/users' , userRouter)
 app.use('/api/subscription' , subscriptionRouter)
+app.use('/api/workflow' , workflowRouter)
+
 app.use(errorMiddleware)
 
 app.get('/', (req, res) => {

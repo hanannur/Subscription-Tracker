@@ -9,3 +9,7 @@ export const JWT_SECRET = process.env   .JWT_SECRET || 'your_jwt_secret_key';
 export const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '1d';
 export const ARCJECT_KEY = process.env.ARCJECT_KEY || 'default_arcject_key';
 export const ARCJECT_ENV = process.env.ARCJECT_ENV || 'development';
+export const QSTASH_URL = process.env.QSTASH_URL || '';
+export const QSTASH_TOKEN = process .env.QSTASH_TOKEN || '';
+export const QSTASH_CURRENT_SIGNING_KEY = process.env.QSTASH_CURRENT_SIGNING_KEY || ''; 
+export const SERVER_URL = process.env.SERVER_URL || 'http://localhost:' + PORT; 
